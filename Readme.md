@@ -1,5 +1,14 @@
 # Home 24 BXP Front End Test
 
+## Demo
+The application is currently hosted on Google Cloud Platform and can be accessed at:
+- Frontend: http://34.44.88.137:8081/
+
+**Important Notes:**
+- The application is served using http-server, which means direct URL navigation (e.g., `/products` or `/categories`) will not work
+- To navigate the application, please use the UI elements and buttons provided on the page
+- Always start from the root URL (http://34.44.88.137:8081/) and navigate using the application's interface
+
 ## Front End
 
 ### Overview
