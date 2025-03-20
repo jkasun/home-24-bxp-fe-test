@@ -1,0 +1,33 @@
+.container {
+  width: 100%;
+}
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.backButton {
+  margin-bottom: 16px;
+}
+
+.breadcrumb {
+  margin-bottom: 16px;
+}
+
+.attributeContainer {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.attributeTag {
+  min-width: 120px;
+  text-align: center;
+}
+
+.attributeList {
+  width: 100%;
+} 

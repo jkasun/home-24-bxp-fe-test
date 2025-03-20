@@ -1,0 +1,135 @@
+.container {
+  padding: 16px;
+}
+
+.header {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.controls {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.categorySelect {
+  width: 200px;
+}
+
+.pageSizeSelect {
+  width: 120px;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .categorySelect,
+  .pageSizeSelect {
+    width: 100%;
+  }
+
+  /* Make table scroll horizontally on mobile */
+  .tableContainer {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Adjust action buttons spacing */
+  .actionButtons {
+    display: flex;
+    gap: 8px;
+  }
+}
+
+/* Ensure table cells don't break into multiple lines */
+.tableCell {
+  white-space: nowrap;
+}
+
+.productLink {
+  color: #1890ff;
+  cursor: pointer;
+}
+
+.productLink:hover {
+  text-decoration: underline;
+}
+
+.categoryPath {
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.desktopView {
+  display: block;
+}
+
+.mobileView {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .desktopView {
+    display: none;
+  }
+
+  .mobileView {
+    display: block;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .controls {
+    width: 100%;
+  }
+
+  .categorySelect {
+    width: 100%;
+    margin-top: 16px;
+  }
+
+  .pageSizeSelect {
+    width: 100%;
+  }
+}
+
+.mobilePagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .mobilePagination :global(.ant-pagination-item),
+  .mobilePagination :global(.ant-pagination-prev),
+  .mobilePagination :global(.ant-pagination-next) {
+    margin: 0 4px;
+  }
+
+  .mobilePagination :global(.ant-pagination-total-text) {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+} 
