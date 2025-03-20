@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { CategoryTree } from '../CategoryTree';
-import { categoryService } from '../../../services/categoryService';
+import { categoryService } from '../services/categoryService';
+import { CategoryTree } from '../components/CategoriesPage/CategoryTree';
 
 // Mock the categoryService
-jest.mock('../../../services/categoryService', () => ({
+jest.mock('../services/categoryService', () => ({
   categoryService: {
     getAllCategories: jest.fn(),
     createCategory: jest.fn(),
