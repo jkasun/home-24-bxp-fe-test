@@ -1,6 +1,6 @@
 import React from 'react';
 import { Breadcrumb } from 'antd';
-import { Category } from '../../../services/categoryService';
+import { Category } from '../../../types';
 
 interface ProductBreadcrumbProps {
   categoryPath: Category[];

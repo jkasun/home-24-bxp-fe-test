@@ -12,6 +12,35 @@ The application is primarily designed for desktop usage, as it's intended to be 
 - Node.js (v14 or higher)
 - npm or yarn package manager
 
+### Environment Configuration
+The application uses environment variables for configuration. A `.env` file is required in the `app` directory. You can use the provided `example.env` as a template.
+
+1. Copy the example environment file:
+   ```bash
+   cp app/example.env app/.env
+   ```
+
+2. Configure the following variables in `.env`:
+
+   ```env
+   # API Configuration
+   VITE_API_BASE_URL=http://localhost:8080
+
+   # Service Configuration
+   VITE_USE_MOCK_SERVICES=false
+
+   # Mock Service Configuration (only used when VITE_USE_MOCK_SERVICES is true)
+   VITE_MOCK_API_DELAY=500
+   VITE_MOCK_TEST_USERNAME=test
+   VITE_MOCK_TEST_PASSWORD=test
+   ```
+
+   - `VITE_API_BASE_URL`: The base URL for the API server
+   - `VITE_USE_MOCK_SERVICES`: Set to `true` to use mock services instead of real API calls
+   - `VITE_MOCK_API_DELAY`: Simulated API delay in milliseconds (only used with mock services)
+   - `VITE_MOCK_TEST_USERNAME`: Username for mock authentication (only used with mock services)
+   - `VITE_MOCK_TEST_PASSWORD`: Password for mock authentication (only used with mock services)
+
 ### Technologies Used
 - React.js
 - TypeScript

@@ -1,4 +1,4 @@
-import { Form, Input, Button, Card, App } from 'antd';
+import { Form, Input, Button, Card } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import styles from './Login.module.css';
 import { useAuth } from '../../contexts/AuthContext';

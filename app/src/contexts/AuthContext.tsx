@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { App } from 'antd';
-import { authService, User, LoginCredentials } from '../services/authService';
+import { authService } from '../services/services/auth.service';
+import { User, LoginCredentials } from '../services/core/auth.service';
 
 interface AuthContextType {
   user: User | null;

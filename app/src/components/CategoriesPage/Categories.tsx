@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout } from 'antd';
 import { CategoryTree } from './CategoryTree';
-import { Category } from '../../services/categoryService';
+import { Category } from '../../types';
 
 const { Content } = Layout;
 

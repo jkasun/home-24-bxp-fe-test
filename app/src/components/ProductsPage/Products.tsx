@@ -1,9 +1,9 @@
 import { useEffect, useState, useCallback, useMemo } from 'react';
 import { Table, App } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import type { Product, ProductFormData } from '../../types';
-import { categoryService, Category } from '../../services/categoryService';
-import { productService } from '../../services/productService';
+import type { Category, Product, ProductFormData } from '../../types';
+import { categoryService } from '../../services/services/category.service';
+import { productService } from '../../services/services/product.service';
 import { EditProduct } from './components/EditProduct';
 import { LastModifiedProduct } from '../shared/LastModifiedProduct';
 import styles from './Products.module.css';

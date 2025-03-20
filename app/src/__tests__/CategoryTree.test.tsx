@@ -1,7 +1,6 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { categoryService } from '../services/categoryService';
+import { categoryService } from '../services/services/category.service';
 import { CategoryTree } from '../components/CategoriesPage/CategoryTree';
 
 // Mock the categoryService

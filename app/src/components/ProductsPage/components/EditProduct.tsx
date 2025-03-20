@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Form, Input, InputNumber, Space, Button } from 'antd';
 import type { Product, AttributeValue } from '../../../types';
-import { Category } from '../../../services/categoryService';
+import { Category } from '../../../types';
 import { CategorySelect } from '../../shared/CategorySelect';
 import { PlusOutlined } from '@ant-design/icons';
 import { AttributeEditor } from '../../shared/AttributeEditor';

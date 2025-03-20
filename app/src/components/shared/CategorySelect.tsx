@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { TreeSelect } from 'antd';
 import type { Category } from '../../types';
-import { categoryService } from '../../services/categoryService';
+import { categoryService } from '../../services/services/category.service';
 
 interface CategorySelectProps {
   value?: number;

@@ -1,5 +1,0 @@
-{
-  "/login": "/login",
-  "/products*": "/products$1",
-  "/categories*": "/categories$1"
-}

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "json-server db.js --routes routes.json --middlewares login.middleware.js -p 8080",
+    "start": "json-server db.js --middlewares login.middleware.js -p 8080",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

@@ -2,7 +2,7 @@ import { Button, Space } from 'antd';
 import { EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import type { Product } from '../../../types';
 import styles from '../Products.module.css';
-import { Category } from '../../../services/categoryService';
+import { Category } from '../../../types';
 
 interface ProductTableColumnsProps {
   categoryPaths: Record<number, Category[]>;

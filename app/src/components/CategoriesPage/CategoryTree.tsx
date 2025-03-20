@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { Tree, Card, Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import { Category, categoryService } from '../../services/categoryService';
+import { categoryService } from '../../services/services/category.service';
 import { CategoryTreeNode } from './components/CategoryTreeNode';
 import { CategoryForm } from './components/CategoryForm';
 import type { TreeProps } from 'antd/es/tree';
+import { Category } from '../../types';
 
 interface CategoryTreeProps {
   onSelectCategory?: (category: Category) => void;

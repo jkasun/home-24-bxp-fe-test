@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Modal, Form, Input } from 'antd';
-import { Category } from '../../../services/categoryService';
-
+import { Category } from '../../../types';
 interface CategoryFormProps {
   visible: boolean;
   editingCategory: Category | null;

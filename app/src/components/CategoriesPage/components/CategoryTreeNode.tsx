@@ -1,8 +1,7 @@
 import React from 'react';
 import { Button, Modal } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { Category } from '../../../services/categoryService';
-
+import { Category } from '../../../types';
 interface TreeNode {
   title: string;
   category: Category;
