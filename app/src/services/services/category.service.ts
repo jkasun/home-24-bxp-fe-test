@@ -5,6 +5,7 @@ import { Category } from '../../types';
 export class CategoryService implements ICategoryService {
   private static instance: CategoryService;
   private readonly API_URL = envConfig.apiBaseUrl;
+  private categoryTreeCache: Category[] | null = null;
 
   private constructor() { }
 
@@ -40,6 +41,31 @@ export class CategoryService implements ICategoryService {
     return response;
   }
 
+  private async buildCategoryTree(): Promise<Category[]> {
+    if (this.categoryTreeCache) {
+      return this.categoryTreeCache;
+    }
+
+    const categories = await this.getAllCategories();
+    this.categoryTreeCache = categories;
+    return categories;
+  }
+
+  private findCategoryPath(categories: Category[], targetId: number): Category[] {
+    const path: Category[] = [];
+    let currentId = targetId;
+
+    while (currentId) {
+      const category = categories.find(cat => cat.id === currentId);
+      if (!category) break;
+
+      path.unshift(category);
+      currentId = category.parent_id || 0;
+    }
+
+    return path;
+  }
+
   async getAllCategories(): Promise<Category[]> {
     const response = await this.fetchWithAuth(`${this.API_URL}/categories`);
     return response.json();
@@ -67,7 +93,14 @@ export class CategoryService implements ICategoryService {
       },
       body: JSON.stringify(category),
     });
-    return response.json();
+    const newCategory = await response.json();
+    
+    // Update cache if it exists
+    if (this.categoryTreeCache) {
+      this.categoryTreeCache = [...this.categoryTreeCache, newCategory];
+    }
+    
+    return newCategory;
   }
 
   async updateCategory(id: number, category: Partial<Category>): Promise<Category | undefined> {
@@ -79,7 +112,16 @@ export class CategoryService implements ICategoryService {
         },
         body: JSON.stringify(category),
       });
-      return response.json();
+      const updatedCategory = await response.json();
+      
+      // Update cache if it exists
+      if (this.categoryTreeCache) {
+        this.categoryTreeCache = this.categoryTreeCache.map(cat => 
+          cat.id === id ? updatedCategory : cat
+        );
+      }
+      
+      return updatedCategory;
     } catch (error) {
       return undefined;
     }
@@ -90,6 +132,12 @@ export class CategoryService implements ICategoryService {
       await this.fetchWithAuth(`${this.API_URL}/categories/${id}`, {
         method: 'DELETE',
       });
+      
+      // Update cache if it exists
+      if (this.categoryTreeCache) {
+        this.categoryTreeCache = this.categoryTreeCache.filter(cat => cat.id !== id);
+      }
+      
       return true;
     } catch (error) {
       return false;
@@ -97,8 +145,8 @@ export class CategoryService implements ICategoryService {
   }
 
   async getCategoryPath(categoryId: number): Promise<Category[]> {
-    const response = await this.fetchWithAuth(`${this.API_URL}/categories/${categoryId}/path`);
-    return response.json();
+    const categories = await this.buildCategoryTree();
+    return this.findCategoryPath(categories, categoryId);
   }
 }
 
