@@ -26,6 +26,33 @@ export const Products = () => {
   const { message: messageApi, modal } = App.useApp();
   const [currentPage, setCurrentPage] = useState(1);
 
+  // Fetch all products only once when component mounts
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const fetchedProducts = await productService.getAllProducts();
+        setProducts(fetchedProducts);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+        messageApi.error('Failed to fetch products');
+      }
+    };
+    
+    fetchProducts();
+  }, [messageApi]);
+
+  // Memoize filtered products based on selected category
+  const filteredProducts = useMemo(() => {
+    if (!selectedCategory) {
+      return products;
+    }
+    return products.filter(product => {
+      const categoryPath = categoryPaths[product.category_id];
+      if (!categoryPath) return false;
+      return categoryPath.some(cat => cat.id === selectedCategory);
+    });
+  }, [products, selectedCategory, categoryPaths]);
+
   // Memoize getAllChildCategoryIds since it's a complex function that doesn't depend on any state
   const getAllChildCategoryIds = useCallback(async (categoryId: number): Promise<number[]> => {
     const result: number[] = [categoryId];
@@ -38,26 +65,6 @@ export const Products = () => {
 
     return result;
   }, []);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      let fetchedProducts;
-      if (selectedCategory) {
-        // Get all category IDs (selected category and its children)
-        const categoryIds = await getAllChildCategoryIds(selectedCategory);
-
-        // Fetch products for all categories
-        const allProducts = await productService.getAllProducts();
-        fetchedProducts = allProducts.filter(product =>
-          categoryIds.includes(product.category_id)
-        );
-      } else {
-        fetchedProducts = await productService.getAllProducts();
-      }
-      setProducts(fetchedProducts);
-    };
-    fetchProducts();
-  }, [selectedCategory, getAllChildCategoryIds]);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -180,7 +187,7 @@ export const Products = () => {
         <div className={styles.desktopView}>
           <Table
             columns={columns}
-            dataSource={products}
+            dataSource={filteredProducts}
             rowKey="id"
             pagination={{
               pageSize: pageSize,
@@ -197,7 +204,7 @@ export const Products = () => {
         {/* Mobile view */}
         <div className={styles.mobileView}>
           <ProductsMobileView
-            products={products}
+            products={filteredProducts}
             categoryPaths={categoryPaths}
             currentPage={currentPage}
             pageSize={pageSize}
