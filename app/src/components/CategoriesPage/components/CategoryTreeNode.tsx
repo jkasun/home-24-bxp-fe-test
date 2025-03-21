@@ -40,6 +40,7 @@ export const CategoryTreeNode: React.FC<CategoryTreeNodeProps> = ({
             e.stopPropagation();
             onAdd(node.category.id);
           }}
+          data-testid={`add-category-${node.category.id}`}
         />
         <Button
           type="text"
@@ -48,12 +49,14 @@ export const CategoryTreeNode: React.FC<CategoryTreeNodeProps> = ({
             e.stopPropagation();
             onEdit(node.category);
           }}
+          data-testid={`edit-category-${node.category.id}`}
         />
         <Button
           type="text"
           danger
           icon={<DeleteOutlined />}
           onClick={handleDelete}
+          data-testid={`delete-category-${node.category.id}`}
         />
       </div>
     </div>

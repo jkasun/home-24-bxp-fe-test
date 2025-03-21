@@ -61,15 +61,34 @@ The application uses environment variables for configuration. A `.env` file is r
 2. Install dependencies:
    ```bash
    npm install
-   # or
-   yarn install
    ```
 3. Start the development server:
    ```bash
-   npm start
-   # or
-   yarn start
+   npm run dev
    ```
+
+### Running Unit Tests
+The project uses Jest and React Testing Library for unit testing. The following commands are available:
+
+1. Run all tests:
+   ```bash
+   npm test
+   ```
+
+2. Run tests in watch mode (tests will re-run when files change):
+   ```bash
+   npm run test:watch
+   ```
+
+3. Run tests with coverage report:
+   ```bash
+   npm run test:coverage
+   ```
+   This will generate a coverage report in the `coverage` directory.
+
+The test configuration is set up in:
+- `jest.config.ts`: Main Jest configuration
+- `tsconfig.test.json`: TypeScript configuration specific to tests
 
 ## Possible Improvements of the Project
 
@@ -88,7 +107,7 @@ The application uses environment variables for configuration. A `.env` file is r
    - These optimizations were not fully implemented due to time constraints
 
 ### Testing
-- Currently only one unit test is implemented as a demonstration
+- Currently only couple of unit tests are implemented as a demonstration
 - Future improvements could include:
   - Comprehensive unit test coverage
   - Integration tests

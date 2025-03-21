@@ -2,9 +2,10 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { categoryService } from '../services/services/category.service';
 import { CategoryTree } from '../components/CategoriesPage/CategoryTree';
+import { act } from 'react';
 
 // Mock the categoryService
-jest.mock('../services/categoryService', () => ({
+jest.mock('../services/services/category.service', () => ({
   categoryService: {
     getAllCategories: jest.fn(),
     createCategory: jest.fn(),
@@ -38,7 +39,9 @@ describe('CategoryTree', () => {
     // Click the expand button
     const expandButton = container.querySelector('.ant-tree-switcher');
     expect(expandButton).toBeInTheDocument();
-    fireEvent.click(expandButton!);
+    await act(async () => {
+      fireEvent.click(expandButton!);
+    });
     
     // Now check for the child category
     const childCategory = await screen.findByText('Child Category');
@@ -54,7 +57,9 @@ describe('CategoryTree', () => {
     const addButton = await screen.findByText('Add Root Category');
     expect(addButton).toBeInTheDocument();
 
-    fireEvent.click(addButton);
+    await act(async () => {
+      fireEvent.click(addButton);
+    });
     
     // Check if modal is visible
     const dialog = await screen.findByRole('dialog');
@@ -68,8 +73,51 @@ describe('CategoryTree', () => {
     const rootCategory = await screen.findByText('Root Category');
     expect(rootCategory).toBeInTheDocument();
 
-    fireEvent.click(rootCategory);
+    await act(async () => {
+      fireEvent.click(rootCategory);
+    });
     
     expect(mockOnSelectCategory).toHaveBeenCalledWith(mockCategories[0]);
+  });
+
+  it('handles category deletion', async () => {
+    render(<CategoryTree />);
+    
+    // Wait for loading to complete
+    const rootCategory = await screen.findByText('Root Category');
+    expect(rootCategory).toBeInTheDocument();
+
+    // Find and click the delete button
+    const deleteButton = screen.getByTestId(`delete-category-${mockCategories[0].id}`);
+    await act(async () => {
+      fireEvent.click(deleteButton);
+    });
+
+    // Click OK in the confirmation modal
+    const okButton = await screen.findByText('OK');
+    await act(async () => {
+      fireEvent.click(okButton);
+    });
+
+    // Verify deleteCategory was called
+    expect(categoryService.deleteCategory).toHaveBeenCalledWith(mockCategories[0].id);
+  });
+
+  it('handles category editing', async () => {
+    render(<CategoryTree />);
+    
+    // Wait for loading to complete
+    const rootCategory = await screen.findByText('Root Category');
+    expect(rootCategory).toBeInTheDocument();
+
+    // Find and click the edit button
+    const editButton = screen.getByTestId(`edit-category-${mockCategories[0].id}`);
+    await act(async () => {
+      fireEvent.click(editButton);
+    });
+
+    // Verify edit modal is visible
+    const editDialog = await screen.findByRole('dialog', { name: /edit category/i });
+    expect(editDialog).toBeInTheDocument();
   });
 }); 
